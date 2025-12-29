@@ -3,75 +3,264 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ice Hub Checkpoint</title>
-
+    <title>Ice Hub Checkpoints</title>
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: Arial, Helvetica, sans-serif;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
 
         body {
-            background-color: #000;
-            color: #fff;
-            height: 100vh;
+            background-color: #121212;
+            color: #f5f5f5;
+            min-height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
+            overflow-x: hidden;
+        }
+
+        /* AnimaÃ§Ã£o de entrada da pÃ¡gina */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         .container {
             text-align: center;
+            animation: fadeIn 1s ease-out;
+            padding: 30px;
+            max-width: 800px;
+            width: 90%;
         }
 
-        h1 {
-            margin-bottom: 40px;
-            font-size: 28px;
+        .header {
+            margin-bottom: 50px;
+            padding-bottom: 25px;
+            border-bottom: 1px solid #333;
+        }
+
+        .title {
+            font-size: 2.8rem;
+            margin-bottom: 10px;
+            color: #e0e0e0;
             letter-spacing: 1px;
+            font-weight: 700;
         }
 
+        .subtitle {
+            font-size: 1.4rem;
+            color: #aaa;
+            font-weight: 400;
+            margin-top: 10px;
+        }
+
+        /* Estilo do botÃ£o com animaÃ§Ãµes */
         .checkpoint-btn {
-            padding: 18px 45px;
-            font-size: 20px;
-            color: #00aaff;
-            background: transparent;
-            border: 2px solid #00aaff;
-            border-radius: 12px;
+            padding: 20px 50px;
+            font-size: 1.3rem;
+            color: #e0e0e0;
+            background-color: #2a2a2a;
+            border: 1px solid #444;
+            border-radius: 10px;
             cursor: pointer;
-            transition: 0.3s ease-in-out;
-            box-shadow: 
-                0 0 10px #00aaff,
-                0 0 20px #00aaff,
-                0 0 40px rgba(0, 170, 255, 0.7);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
 
+        /* Efeito de ripple no clique */
+        .checkpoint-btn::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 5px;
+            height: 5px;
+            background: rgba(255, 255, 255, 0.1);
+            opacity: 0;
+            border-radius: 100%;
+            transform: scale(1, 1) translate(-50%);
+            transform-origin: 50% 50%;
+        }
+
+        .checkpoint-btn:focus:not(:active)::after {
+            animation: ripple 1s ease-out;
+        }
+
+        @keyframes ripple {
+            0% {
+                transform: scale(0, 0);
+                opacity: 0.5;
+            }
+            100% {
+                transform: scale(30, 30);
+                opacity: 0;
+            }
+        }
+
+        /* AnimaÃ§Ã£o de hover no botÃ£o */
         .checkpoint-btn:hover {
-            background-color: #00aaff;
-            color: #000;
-            box-shadow: 
-                0 0 15px #00aaff,
-                0 0 30px #00aaff,
-                0 0 60px #00aaff;
-            transform: scale(1.05);
+            background-color: #3a3a3a;
+            border-color: #666;
+            transform: translateY(-5px);
+            box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        /* AnimaÃ§Ã£o de clique no botÃ£o */
+        .checkpoint-btn:active {
+            transform: translateY(-2px);
+            transition: transform 0.1s;
+        }
+
+        /* Badge do botÃ£o */
+        .badge {
+            display: inline-block;
+            background-color: #444;
+            color: #ccc;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            margin-left: 12px;
+            vertical-align: middle;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% {
+                background-color: #444;
+            }
+            50% {
+                background-color: #555;
+            }
+            100% {
+                background-color: #444;
+            }
+        }
+
+        /* RodapÃ© informativo */
+        .footer {
+            margin-top: 60px;
+            color: #777;
+            font-size: 0.9rem;
+            padding-top: 20px;
+            border-top: 1px solid #333;
+        }
+
+        /* Responsividade */
+        @media (max-width: 768px) {
+            .title {
+                font-size: 2.2rem;
+            }
+            
+            .subtitle {
+                font-size: 1.1rem;
+            }
+            
+            .checkpoint-btn {
+                padding: 18px 40px;
+                font-size: 1.1rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .title {
+                font-size: 1.8rem;
+            }
+            
+            .checkpoint-btn {
+                padding: 16px 35px;
+                font-size: 1rem;
+                width: 100%;
+            }
+            
+            .badge {
+                margin-top: 10px;
+                margin-left: 0;
+                display: block;
+            }
         }
     </style>
 </head>
 
 <body>
     <div class="container">
-        <h1>Ice Hub Checkpoint</h1>
+        <div class="header">
+            <h1 class="title">IceHub Checkpoints</h1>
+            <h2 class="subtitle">Key System</h2>
+        </div>
 
-        <button class="checkpoint-btn" onclick="redirect()">
+        <button class="checkpoint-btn" onclick="redirect()" id="checkpointBtn">
             Checkpoint 2/2
+            <span class="badge">Ativo</span>
         </button>
+
+        <div class="footer">
+            <p></p>
+            <p style="margin-top: 8px; font-size: 0.8rem;">Clique no botÃ£o para continuar para o destino final</p>
+        </div>
     </div>
 
     <script>
+        // AnimaÃ§Ã£o adicional ao carregar a pÃ¡gina
+        document.addEventListener('DOMContentLoaded', function() {
+            const btn = document.getElementById('checkpointBtn');
+            
+            // Pequeno delay para a animaÃ§Ã£o ficar visÃ­vel
+            setTimeout(() => {
+                btn.style.transform = 'translateY(0)';
+            }, 300);
+        });
+
         function redirect() {
-            window.location.href = "https://shnfinal.vercel.app/";
+            const btn = document.getElementById('checkpointBtn');
+            
+            // AnimaÃ§Ã£o de clique no botÃ£o antes do redirecionamento
+            btn.style.transform = 'scale(0.95)';
+            btn.style.backgroundColor = '#444';
+            
+            // Redireciona apÃ³s um pequeno delay para a animaÃ§Ã£o ser visÃ­vel
+            setTimeout(() => {
+                window.location.href = "https://link-hub.net/1379012/k39FHDO5kahI";
+            }, 150);
         }
+        
+        // Adiciona efeito de ripple ao clicar no botÃ£o
+        document.getElementById('checkpointBtn').addEventListener('click', function(e) {
+            // Remove qualquer ripple anterior
+            let ripple = document.querySelector('.ripple');
+            if (ripple) {
+                ripple.remove();
+            }
+            
+            // Cria o elemento de ripple
+            ripple = document.createElement('span');
+            ripple.classList.add('ripple');
+            this.appendChild(ripple);
+            
+            // Posiciona o ripple no local do clique
+            let x = e.clientX - e.target.offsetLeft;
+            let y = e.clientY - e.target.offsetTop;
+            
+            ripple.style.left = `${x}px`;
+            ripple.style.top = `${y}px`;
+            
+            // Remove o ripple apÃ³s a animaÃ§Ã£o
+            setTimeout(() => {
+                ripple.remove();
+            }, 600);
+        });
     </script>
 </body>
 </html>
